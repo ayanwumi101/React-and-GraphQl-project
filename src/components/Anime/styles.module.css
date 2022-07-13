@@ -1,0 +1,23 @@
+.launch_container{
+    background-color: #ededed88;
+    border: none;
+    border-radius: 4px;
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 10px 20px;
+}
+
+.launch_name{
+    margin: 10px 0;
+}
+
+.details{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.details button{
+    background-color: rgba(0, 0, 0, 0.733);
+    color: white;
+}

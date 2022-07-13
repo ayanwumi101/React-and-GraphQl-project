@@ -1,23 +1,62 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, createContext, useEffect }from 'react'
+import Animes from './components/Animes/Animes'
+import Search from './components/Search/Search'
+import styles from './App.module.css';
+import { useQuery, gql } from '@apollo/client';
 
-function App() {
+export const MovieContext = React.createContext();
+
+const App = () => {
+
+const MOVIES_QUERY = gql`{
+  Page { 
+    media {
+      siteUrl
+      title {
+        english
+        native
+      }
+      description
+      id
+      format
+      genres
+    }
+  }
+}`
+
+  
+  const { data, loading, error } = useQuery(MOVIES_QUERY);
+  
+  const { search, setSearch } = useState([]);
+  useEffect(() => {
+    if (data) {
+      setSearch(data.Page.media)
+    }
+  }, [])
+
+  const updateSearch = (e) => {
+    const newData = data.Page.media.filter((item) => item.format.startsWith(e.target.value));
+    setSearch(newData);
+  }
+  
+  if (loading) {
+    return "loading..."
+  }
+
+  if (error) {
+    return <div>
+        <p>{error.message}</p>
+    </div>
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={styles.app}>
+      <div className={styles.heading}><h1>SpaceX Launches</h1></div>
+
+      <MovieContext.Provider value={[data, search, setSearch, updateSearch]}>
+        <Search />
+        <Animes />
+      </MovieContext.Provider>
     </div>
   );
 }
