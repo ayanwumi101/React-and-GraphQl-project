@@ -1,41 +1,9 @@
-import React, { useContext } from 'react'
-// import { useQuery, gql } from '@apollo/client';
+import React from 'react'
 import styles from './styles.module.css'
 
 
 const Anime = ({item}) => {
   console.log(item);
-  // const {data} = useContext(MovieContext)
-  // const { title, format, description } = item;
-//   const MOVIES_QUERY = gql`{
-//   Page {
-//     media {
-//       siteUrl
-//       title {
-//         english
-//         native
-//       }
-//       description
-//       id
-//       format
-//       genres
-//     }
-//   }
-// }`
-
-
-// const { data, loading, error } = useQuery(MOVIES_QUERY);
-  
-//   if (loading) {
-//     return "loading..."
-//   }
-
-//   if (error) {
-//     return <div>
-//         <p>{error.message}</p>
-//     </div>
-//   }
-
   return (
     <>
           <div className={styles.launch_container}>

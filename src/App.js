@@ -27,18 +27,22 @@ const MOVIES_QUERY = gql`{
   
   const { data, loading, error } = useQuery(MOVIES_QUERY);
   
-  const { search, setSearch } = useState([]);
+  const [filtered, setFiltered] = useState([]);
+  const [position, setPosition] = useState(-1);
+  
+  
   useEffect(() => {
     if (data) {
-      setSearch(data.Page.media)
+      setFiltered(data.Page.media)
     }
-  }, [])
+  }, [data, loading])
 
-  const updateSearch = (e) => {
-    const newData = data.Page.media.filter((item) => item.format.startsWith(e.target.value));
-    setSearch(newData);
+  const updateFiltered = (e) => {
+    const newData = data.Page.media.filter((item) => item.format.toLowerCase().startsWith(e.target.value.toLowerCase()));
+    setFiltered(newData);
   }
-  
+
+
   if (loading) {
     return "loading..."
   }
@@ -48,12 +52,12 @@ const MOVIES_QUERY = gql`{
         <p>{error.message}</p>
     </div>
   }
+  
 
   return (
     <div className={styles.app}>
-      <div className={styles.heading}><h1>SpaceX Launches</h1></div>
-
-      <MovieContext.Provider value={[data, search, setSearch, updateSearch]}>
+      <div className={styles.heading}><h1>Animes List</h1></div>
+      <MovieContext.Provider value={[filtered, updateFiltered, position, setFiltered]}>
         <Search />
         <Animes />
       </MovieContext.Provider>
