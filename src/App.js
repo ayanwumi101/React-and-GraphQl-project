@@ -58,6 +58,9 @@ const MOVIES_QUERY = gql`{
     <div className={styles.app}>
       <div className={styles.heading}><h1>Animes List</h1></div>
       <MovieContext.Provider value={[filtered, updateFiltered, position, setFiltered]}>
+      <div className={styles.heading}><h1>SpaceX Launches</h1></div>
+
+      <MovieContext.Provider value={[filtered, updateFiltered]}>
         <Search />
         <Animes />
       </MovieContext.Provider>

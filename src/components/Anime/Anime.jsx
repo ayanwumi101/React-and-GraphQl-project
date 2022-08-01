@@ -3,7 +3,6 @@ import styles from './styles.module.css'
 
 
 const Anime = ({item}) => {
-  console.log(item);
   return (
     <>
           <div className={styles.launch_container}>
